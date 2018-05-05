@@ -15,6 +15,7 @@ import com.bumptech.glide.request.target.Target;
 import com.ish.qswallpaper.R;
 import com.ish.qswallpaper.databinding.ActivityCutPictureBinding;
 import com.ish.qswallpaper.view.HorizontalScrollImageView;
+import com.ish.qswallpaper.viewModel.CutPictureViewModel;
 
 /**
  * @author ish
@@ -34,29 +35,9 @@ public class CutPictureAct extends AppCompatActivity {
         window.setFlags(flag, flag);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_cut_picture);
         String url = "http://www.isssh.cn/test/p1.jpg";
-        Glide.with(this)
-                .load(url)
-                .asBitmap()
-                .dontTransform()
-                .placeholder(R.drawable.ic_launcher_background)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .listener(new RequestListener<String, Bitmap>() {
-                              @Override
-                              public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-                                  return false;
-                              }
-
-                              @Override
-                              public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target,
-                                                             boolean isFromMemoryCache, boolean isFirstResource) {
-                                  Log.d("main", "onResourceReady:  " + resource.getWidth());
-                                  mBinding.horizontalScrollImageview.setPicSize(resource.getWidth(),resource.getHeight());
-                                  return false;
-                              }
-                          }
-
-
-                )
-                .into(mBinding.horizontalScrollImageview);
+        CutPictureViewModel viewModel = new CutPictureViewModel(mBinding);
+        viewModel.setImageUrl(url);
+        viewModel.setPlaceholder(getResources().getDrawable(R.drawable.ic_launcher_background));
+        mBinding.setViewModel(viewModel);
     }
 }

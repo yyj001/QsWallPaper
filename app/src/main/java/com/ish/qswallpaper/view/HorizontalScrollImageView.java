@@ -46,6 +46,11 @@ public class HorizontalScrollImageView extends ImageView {
         initData();
     }
 
+    public HorizontalScrollImageView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        initData();
+    }
+
     private void initData() {
         this.screenWidth = getWidth();
         this.screenHeight = getHeight();
