@@ -96,7 +96,6 @@ public class HorizontalScrollImageView extends ImageView {
                     }
                 }
                 moveSum += move;
-                Log.d(TAG, "onTouchEvent: " + moveSum + " " + usePicWidth);
                 scrollBy((int) move, 0);
                 mx = curX;
                 break;

@@ -13,7 +13,7 @@
             type="com.ish.qswallpaper.viewModel.CutPictureViewModel" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.ish.qswallpaper.activity.CutPictureAct">
@@ -27,5 +27,37 @@
             app:imageUrl="@{viewModel.imageUrl}"
             app:placeholder="@{viewModel.placeholder}"
             />
-    </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black"
+            android:alpha="0.4"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/cp_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/icon_back"
+                />
+            <Button
+                android:id="@+id/cp_download"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/icon_download"
+                android:layout_alignParentRight="true"/>
+            <Button
+                android:id="@+id/cp_preview"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_preview"
+                android:layout_toLeftOf="@+id/cp_download"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

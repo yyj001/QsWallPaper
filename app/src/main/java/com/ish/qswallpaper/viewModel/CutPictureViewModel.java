@@ -8,13 +8,19 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 import com.ish.qswallpaper.R;
 import com.ish.qswallpaper.databinding.ActivityCutPictureBinding;
+import com.ish.qswallpaper.internet.ProgressInterceptor;
 import com.ish.qswallpaper.view.HorizontalScrollImageView;
 
 /**
@@ -25,11 +31,13 @@ import com.ish.qswallpaper.view.HorizontalScrollImageView;
 public class CutPictureViewModel {
 
     private ActivityCutPictureBinding mBinding;
-    private String imageUrl;
+    private static String imageUrl;
     private Drawable placeholder;
+    static MyProgressListener progressListener;
 
-    public CutPictureViewModel(ActivityCutPictureBinding mBinding) {
+    public CutPictureViewModel(ActivityCutPictureBinding mBinding,MyProgressListener listener) {
         this.mBinding = mBinding;
+        progressListener = listener;
     }
 
     public Drawable getPlaceholder() {
@@ -41,7 +49,7 @@ public class CutPictureViewModel {
     }
 
     public void setImageUrl(String url) {
-        this.imageUrl = url;
+        imageUrl = url;
     }
 
     public String getImageUrl() {
@@ -55,8 +63,10 @@ public class CutPictureViewModel {
      * @param imageUrl
      */
     @BindingAdapter({"bind:imageUrl","bind:placeholder"})
-    public static void loadImage(final HorizontalScrollImageView view, String imageUrl,
+    public static void loadImage(final HorizontalScrollImageView view, final String imageUrl,
                                  Drawable placeholder) {
+        //开始下载显示ProgressDialog
+        progressListener.showProgress();
         Glide.with(view.getContext())
                 .load(imageUrl)
                 .asBitmap()
@@ -65,7 +75,8 @@ public class CutPictureViewModel {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .listener(new RequestListener<String, Bitmap>() {
                               @Override
-                              public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                              public boolean onException(Exception e, String model, Target<Bitmap> target
+                                      , boolean isFirstResource) {
                                   return false;
                               }
 
@@ -73,10 +84,23 @@ public class CutPictureViewModel {
                               public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target,
                                                              boolean isFromMemoryCache, boolean isFirstResource) {
                                   view.setPicSize(resource.getWidth(), resource.getHeight());
+                                  //下载完后隐藏progressDialog
+                                  progressListener.dismissProgress();
                                   return false;
                               }
                           }
                 )
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .into(view);
+    }
+
+    /**
+     * 给Activity回调更新progress
+     */
+    public interface MyProgressListener{
+
+        public void showProgress();
+
+        public void dismissProgress();
     }
 }
