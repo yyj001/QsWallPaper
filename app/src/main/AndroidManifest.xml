@@ -19,10 +19,17 @@
         <meta-data
             android:name="com.ish.qswallpaper.internet.MyGlideModule"
             android:value="GlideModule" />
+
         <activity
             android:name=".activity.CutPictureAct"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".activity.HomeAct"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
