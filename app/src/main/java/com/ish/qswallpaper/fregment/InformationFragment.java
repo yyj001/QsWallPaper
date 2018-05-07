@@ -1,5 +1,6 @@
 package com.ish.qswallpaper.fregment;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ish.qswallpaper.R;
+import com.ish.qswallpaper.databinding.FragmentGalleryBinding;
+import com.ish.qswallpaper.databinding.FragmentInformationBinding;
 
 /**
  * @author ish
@@ -15,12 +18,16 @@ import com.ish.qswallpaper.R;
  */
 
 public class InformationFragment extends Fragment {
+
+    private FragmentInformationBinding mBinding;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_information,container,false);
-        return view;
+        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_information,
+                container,false);
+        return mBinding.getRoot();
     }
 }
 

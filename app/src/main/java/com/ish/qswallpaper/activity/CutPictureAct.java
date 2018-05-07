@@ -2,22 +2,15 @@ package com.ish.qswallpaper.activity;
 
 import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.ish.qswallpaper.R;
 import com.ish.qswallpaper.databinding.ActivityCutPictureBinding;
 import com.ish.qswallpaper.internet.ProgressInterceptor;
 import com.ish.qswallpaper.listener.ProgressListener;
-import com.ish.qswallpaper.view.HorizontalScrollImageView;
 import com.ish.qswallpaper.viewModel.CutPictureViewModel;
 
 /**
