@@ -10,9 +10,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ish.qswallpaper.R;
 import com.ish.qswallpaper.adapter.GalleryItemAdapter;
+import com.ish.qswallpaper.adapter.InnerAdapter;
 import com.ish.qswallpaper.bean.WallPaper;
 import com.ish.qswallpaper.databinding.FragmentGalleryBinding;
 
@@ -28,6 +30,10 @@ public class GalleryFragment extends Fragment{
 
     private FragmentGalleryBinding mBinding;
     private List<WallPaper> list = new ArrayList<WallPaper>();
+    private List<WallPaper> bannerList = new ArrayList<WallPaper>();
+    private RecyclerView header;
+    private LinearLayoutManager outLayoutManager;
+    private LinearLayoutManager innerLayoutManager;
 
     @Nullable
     @Override
@@ -42,43 +48,45 @@ public class GalleryFragment extends Fragment{
 
     public void initView() {
         super.onStart();
-        for (int i = 1; i <= 500; ++i) {
+        for (int i = 1; i <= 30; ++i) {
             WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/wallpaper_mini512/" + (i%23+1) +".jpg",
                     null,1);
             list.add(wallPaper);
         }
-        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL);
-        //final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setAutoMeasureEnabled(true);
-        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
-        mBinding.galleryRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                layoutManager.invalidateSpanAssignments(); //防止第一行到顶部有空白区域
-            }
-        });
-        mBinding.galleryRecyclerview.setLayoutManager(layoutManager);
+
+        for (int i = 1; i <= 3; ++i) {
+            WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/banner/banner" + i +".jpg",
+                    null,1);
+            bannerList.add(wallPaper);
+        }
+
+        //设置layoutManager
+        outLayoutManager = new LinearLayoutManager(getActivity());
+        innerLayoutManager = new LinearLayoutManager(getActivity());
+        innerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        outLayoutManager.setAutoMeasureEnabled(true);
+        innerLayoutManager.setAutoMeasureEnabled(true);
+        //为recyclerView设置lm
+        mBinding.galleryRecyclerview.setLayoutManager(outLayoutManager);
         mBinding.galleryRecyclerview.setHasFixedSize(true);
         GalleryItemAdapter adapter = new GalleryItemAdapter(list);
+
+        View h = LayoutInflater.from(getActivity()).inflate(R.layout.header_gallery,
+                mBinding.galleryRecyclerview, false);
+        header = (RecyclerView) h.findViewById(R.id.inner_recyclerview);
+        header.setLayoutManager(innerLayoutManager);
+        header.setAdapter(new InnerAdapter(bannerList));
+//        header = LayoutInflater.from(getActivity()).inflate(R.layout.header_gallery,
+//                mBinding.galleryRecyclerview, false);
+        adapter.setHeaderView(header);
+
         mBinding.galleryRecyclerview.setAdapter(adapter);
+    }
 
 
-        mBinding.getRoot().findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                linearLayoutManager.setAutoMeasureEnabled(true);
-                mBinding.galleryRecyclerview.setLayoutManager(linearLayoutManager);
-
-            }
-        });
-        mBinding.getRoot().findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mBinding.galleryRecyclerview.setLayoutManager(layoutManager);
-            }
-        });
+    public void bigList(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+        mBinding.galleryRecyclerview.setLayoutManager(linearLayoutManager);
     }
 }
