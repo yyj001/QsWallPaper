@@ -48,7 +48,7 @@ public class InnerAdapter extends RecyclerView.Adapter<InnerAdapter.ViewHolder> 
             Glide.with(holder.imageView.getContext())
                     .load(url)
                     .dontTransform()
-                    .error(R.drawable.ic_launcher_background)
+                    .error(R.drawable.placeholder)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .crossFade()
                     .into(holder.imageView);

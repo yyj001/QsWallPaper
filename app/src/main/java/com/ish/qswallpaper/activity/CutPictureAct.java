@@ -58,7 +58,7 @@ public class CutPictureAct extends AppCompatActivity {
         //设置ViewMode
         viewModel = new CutPictureViewModel(mBinding, progressListener);
         viewModel.setImageUrl(url);
-        viewModel.setPlaceholder(getResources().getDrawable(R.drawable.ic_launcher_background));
+        viewModel.setPlaceholder(getResources().getDrawable(R.drawable.placeholder));
         mBinding.setViewModel(viewModel);
         //progressDialog初始化
         progressDialog = new ProgressDialog(this);

@@ -65,7 +65,7 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
         Glide.with(holder.imageView.getContext())
                 .load(url)
                 .dontTransform()
-                .error(R.drawable.ic_launcher_background)
+                .error(R.drawable.placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .crossFade()
                 .into(holder.imageView);
@@ -98,7 +98,7 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
      * @param headerView
      */
     public void setHeaderView(View headerView) {
-        this.headerView = headerView;
+        GalleryItemAdapter.headerView = headerView;
         notifyItemInserted(0);
     }
 

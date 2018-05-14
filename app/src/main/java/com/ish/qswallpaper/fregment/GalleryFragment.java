@@ -4,10 +4,16 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,11 +35,13 @@ import java.util.List;
 public class GalleryFragment extends Fragment{
 
     private FragmentGalleryBinding mBinding;
-    private List<WallPaper> list = new ArrayList<WallPaper>();
-    private List<WallPaper> bannerList = new ArrayList<WallPaper>();
+    private List<WallPaper> list;
+    private List<WallPaper> bannerList;
     private RecyclerView header;
     private LinearLayoutManager outLayoutManager;
     private LinearLayoutManager innerLayoutManager;
+
+
 
     @Nullable
     @Override
@@ -42,13 +50,16 @@ public class GalleryFragment extends Fragment{
 
         mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_gallery,
                 container,false);
+        //防止oncreateView多次导致内容增多
+        list = new ArrayList<WallPaper>();
+        bannerList = new ArrayList<WallPaper>();
         initView();
         return mBinding.getRoot();
     }
 
     public void initView() {
         super.onStart();
-        for (int i = 1; i <= 30; ++i) {
+        for (int i = 1; i <= 23; ++i) {
             WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/wallpaper_mini512/" + (i%23+1) +".jpg",
                     null,1);
             list.add(wallPaper);
@@ -76,11 +87,15 @@ public class GalleryFragment extends Fragment{
         header = (RecyclerView) h.findViewById(R.id.inner_recyclerview);
         header.setLayoutManager(innerLayoutManager);
         header.setAdapter(new InnerAdapter(bannerList));
-//        header = LayoutInflater.from(getActivity()).inflate(R.layout.header_gallery,
-//                mBinding.galleryRecyclerview, false);
+
         adapter.setHeaderView(header);
 
         mBinding.galleryRecyclerview.setAdapter(adapter);
+
+//        Toolbar toolbar = mBinding.galleryToolbar;
+//        setHasOptionsMenu(true);
+//        toolbar.inflateMenu(R.menu.home_toolbar);
+
     }
 
 
@@ -89,4 +104,6 @@ public class GalleryFragment extends Fragment{
         linearLayoutManager.setAutoMeasureEnabled(true);
         mBinding.galleryRecyclerview.setLayoutManager(linearLayoutManager);
     }
+
+
 }
