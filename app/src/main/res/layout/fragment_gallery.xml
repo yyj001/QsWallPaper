@@ -2,48 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/gallery_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll"
-                app:title=" 首页"
-                android:background="#45ffffff"
-                app:titleTextAppearance="@style/ToolbarTheme"
-                android:layout_marginTop="5dp"
-                />
-            <!--<com.yalantis.jellytoolbar.widget.JellyToolbar-->
-                <!--android:id="@+id/gallery_toolbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="50dp"-->
-                <!--android:background="@color/colorPrimary"-->
-                <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
-                <!--android:paddingStart="@dimen/activity_horizontal_margin"-->
-                <!--app:cancelIcon="@drawable/ic_more"-->
-                <!--app:endColor="@color/black"-->
-                <!--app:icon="@drawable/ic_type"-->
-                <!--app:startColor="@color/white"-->
-                <!--app:title="首页"-->
-                <!--app:titleTextColor="@android:color/white" />-->
-
-
-
-        </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/gallery_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>

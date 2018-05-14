@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ish.qswallpaper.R;
 import com.ish.qswallpaper.adapter.GalleryItemAdapter;
@@ -40,7 +43,6 @@ public class GalleryFragment extends Fragment{
     private RecyclerView header;
     private LinearLayoutManager outLayoutManager;
     private LinearLayoutManager innerLayoutManager;
-
 
 
     @Nullable
@@ -82,13 +84,20 @@ public class GalleryFragment extends Fragment{
         mBinding.galleryRecyclerview.setHasFixedSize(true);
         GalleryItemAdapter adapter = new GalleryItemAdapter(list);
 
-        View h = LayoutInflater.from(getActivity()).inflate(R.layout.header_gallery,
+        View headerLayout = LayoutInflater.from(getActivity()).inflate(R.layout.header_gallery,
                 mBinding.galleryRecyclerview, false);
-        header = (RecyclerView) h.findViewById(R.id.inner_recyclerview);
+        header = (RecyclerView) headerLayout.findViewById(R.id.inner_recyclerview);
         header.setLayoutManager(innerLayoutManager);
         header.setAdapter(new InnerAdapter(bannerList));
 
-        adapter.setHeaderView(header);
+        ImageView searchBtn = (ImageView)headerLayout.findViewById(R.id.search_btn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "2ded", Toast.LENGTH_SHORT).show();
+            }
+        });
+        adapter.setHeaderView(headerLayout);
 
         mBinding.galleryRecyclerview.setAdapter(adapter);
 
@@ -104,6 +113,5 @@ public class GalleryFragment extends Fragment{
         linearLayoutManager.setAutoMeasureEnabled(true);
         mBinding.galleryRecyclerview.setLayoutManager(linearLayoutManager);
     }
-
 
 }

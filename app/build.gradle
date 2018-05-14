@@ -36,8 +36,7 @@ dependencies {
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
     //navitionbar
     implementation 'devlight.io:navigationtabbar:1.2.5'
-    //toolbar
-    implementation 'com.github.yalantis:jellytoolbar:v1.0'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {

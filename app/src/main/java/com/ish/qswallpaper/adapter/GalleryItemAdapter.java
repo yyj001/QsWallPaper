@@ -31,6 +31,7 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
     private List<WallPaper> list;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
+    private static final int TYPE_toolBar = 1;
     private static View headerView;
 
     public GalleryItemAdapter(List<WallPaper> list) {
@@ -52,11 +53,6 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(getItemViewType(position) == TYPE_HEADER){
-//            LinearLayoutManager layoutManager = new LinearLayoutManager(holder.recyclerView.getContext());
-//            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//            holder.recyclerView.setLayoutManager(layoutManager);
-//            InnerAdapter galleryItemAdapter = new InnerAdapter(list);
-//            holder.recyclerView.setAdapter(galleryItemAdapter);
             return;
         }
         int pos = getRealPosition(holder);
