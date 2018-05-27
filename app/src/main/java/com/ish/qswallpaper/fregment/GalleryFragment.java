@@ -100,11 +100,6 @@ public class GalleryFragment extends Fragment{
         adapter.setHeaderView(headerLayout);
 
         mBinding.galleryRecyclerview.setAdapter(adapter);
-
-//        Toolbar toolbar = mBinding.galleryToolbar;
-//        setHasOptionsMenu(true);
-//        toolbar.inflateMenu(R.menu.home_toolbar);
-
     }
 
 

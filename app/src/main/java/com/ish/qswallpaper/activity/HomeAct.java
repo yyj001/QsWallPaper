@@ -21,10 +21,9 @@ import java.util.ArrayList;
 
 import devlight.io.library.ntb.NavigationTabBar;
 
-public class HomeAct extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class HomeAct extends BaseActivity {
 
 
-    //private BottomNavigationView navigation;
     private ViewPager viewPager;
     final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
     NavigationTabBar navigationTabBar;
@@ -32,18 +31,12 @@ public class HomeAct extends BaseActivity implements ViewPager.OnPageChangeListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getSupportActionBar().hide();
         setContentView(R.layout.activity_home);
-
-//        navigation = (BottomNavigationView) findViewById(R.id.navigation_bar);
-//        navigation.setOnNavigationItemSelectedListener(this);
         navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb);
-
 
         FragmentPagerAdapter fragmentPagerAdapter = new TabPageIndicatorAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(fragmentPagerAdapter);
-        viewPager.setOnPageChangeListener(this);
         initData();
     }
 
@@ -78,66 +71,7 @@ public class HomeAct extends BaseActivity implements ViewPager.OnPageChangeListe
         );
         navigationTabBar.setModels(models);
         navigationTabBar.setViewPager(viewPager, 0);
-
-
-//        navigationTabBar.setTitleMode(NavigationTabBar.TitleMode.ACTIVE);
-//        navigationTabBar.setBadgeGravity(NavigationTabBar.BadgeGravity.BOTTOM);
-//        navigationTabBar.setBadgePosition(NavigationTabBar.BadgePosition.CENTER);
-//        navigationTabBar.setIsBadged(true);
-//        navigationTabBar.setIsTitled(true);
-//        navigationTabBar.setIsTinted(true);
-//        navigationTabBar.setIsBadgeUseTypeface(true);
-//        navigationTabBar.setBadgeBgColor(Color.RED);
-//        navigationTabBar.setBadgeTitleColor(Color.WHITE);
-//        navigationTabBar.setIsSwiped(true);
-//        navigationTabBar.setBgColor(Color.BLACK);
-//        navigationTabBar.setBadgeSize(10);
-//        navigationTabBar.setTitleSize(10);
-//        navigationTabBar.setIconSizeFraction(0.5f);
     }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        switch (position) {
-            case 0:
-                //navigation.setSelectedItemId(R.id.navigation_home);
-                break;
-            case 1:
-                //navigation.setSelectedItemId(R.id.navigation_dashboard);
-                break;
-            case 2:
-                //navigation.setSelectedItemId(R.id.navigation_notifications);
-                break;
-            default:
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.navigation_home:
-//                viewPager.setCurrentItem(0);
-//                return true;
-//            case R.id.navigation_dashboard:
-//                viewPager.setCurrentItem(1);
-//                return true;
-//            case R.id.navigation_notifications:
-//                viewPager.setCurrentItem(2);
-//                return true;
-//            default:
-//        }
-//        return false;
-//    }
 
 }
 

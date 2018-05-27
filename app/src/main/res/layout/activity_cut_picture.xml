@@ -5,9 +5,7 @@
     >
 
     <data>
-        <!--<import type="interest.yiyongbao.mvp.model.BillInfo"/>-->
 
-        <!--<variable type="BillInfo" name="unReplayBill"/>-->
         <variable
             name="viewModel"
             type="com.ish.qswallpaper.viewModel.CutPictureViewModel" />

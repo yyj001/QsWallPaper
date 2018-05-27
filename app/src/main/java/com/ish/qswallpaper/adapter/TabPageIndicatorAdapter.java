@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.ish.qswallpaper.fregment.CollectionFragment;
 import com.ish.qswallpaper.fregment.GalleryFragment;
 import com.ish.qswallpaper.fregment.InformationFragment;
+import com.ish.qswallpaper.fregment.NewestFragment;
 
 /**
  * @author ish
@@ -23,12 +24,16 @@ public class TabPageIndicatorAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position){
             case 0:
-                fragment = new GalleryFragment();
+                //fragment = new GalleryFragment();
+                fragment = new NewestFragment();
                 break;
             case 1:
-                fragment = new CollectionFragment();
+                fragment = new NewestFragment();
                 break;
             case 2:
+                fragment = new CollectionFragment();
+                break;
+            case 3:
                 fragment = new InformationFragment();
                 break;
             default:
@@ -38,6 +43,6 @@ public class TabPageIndicatorAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }
