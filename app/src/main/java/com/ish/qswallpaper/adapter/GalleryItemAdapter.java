@@ -44,7 +44,7 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
             return new ViewHolder(headerView);
         }
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_wallpaper, parent, false);
+                .inflate(R.layout.item_recommend, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

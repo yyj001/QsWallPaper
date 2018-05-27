@@ -24,8 +24,8 @@ public class TabPageIndicatorAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position){
             case 0:
-                //fragment = new GalleryFragment();
-                fragment = new NewestFragment();
+                fragment = new GalleryFragment();
+                //fragment = new NewestFragment();
                 break;
             case 1:
                 fragment = new NewestFragment();
