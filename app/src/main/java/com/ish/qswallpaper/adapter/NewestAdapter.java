@@ -3,10 +3,12 @@ package com.ish.qswallpaper.adapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -28,7 +30,8 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     private List<WallPaper> list;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
-    private static View headerView;
+    private static HeaderNewestBinding headerBinding;
+    private boolean ifStragger = false;
 
     public NewestAdapter(List<WallPaper> list) {
         this.list = list;
@@ -37,10 +40,8 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //如果头部头部存在
-        if (viewType == TYPE_HEADER && headerView != null) {
-            HeaderNewestBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-            R.layout.header_newest, parent, false);
-            return new ViewHolder(viewDataBinding);
+        if (viewType == TYPE_HEADER && headerBinding != null) {
+            return new ViewHolder(headerBinding);
         }
         ItemWallpaperBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_wallpaper, parent, false);
@@ -53,14 +54,13 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
             return;
         }
         int pos = getRealPosition(holder);
-        ((ItemWallpaperBinding)holder.binding).setImage(list.get(pos));
-
+        ((ItemWallpaperBinding) holder.binding).setImage(list.get(pos));
     }
 
 
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
-        return headerView == null ? position : position - 1;
+        return headerBinding == null ? position : position - 1;
     }
 
     /**
@@ -71,7 +71,7 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
      */
     @Override
     public int getItemViewType(int position) {
-        if (headerView == null) {
+        if (headerBinding == null) {
             return TYPE_ITEM;
         }
         if (position == 0) {
@@ -83,17 +83,32 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     /**
      * 插入头部
      *
-     * @param headerView
+     * @param binding
      */
-    public void setHeaderView(View headerView) {
-        NewestAdapter.headerView = headerView;
+    public void setHeaderView(HeaderNewestBinding binding) {
+        NewestAdapter.headerBinding = binding;
         notifyItemInserted(0);
+    }
+
+    public void setIfStragger(Boolean ifStragger) {
+        this.ifStragger = ifStragger;
     }
 
 
     @Override
+    public void onViewAttachedToWindow(ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+        if(lp != null
+                && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+            p.setFullSpan(holder.getLayoutPosition() == 0);
+        }
+    }
+
+    @Override
     public int getItemCount() {
-        return headerView == null ? list.size() : list.size() + 1;
+        return headerBinding == null ? list.size() : list.size() + 1;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -101,13 +116,13 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
 
         public ViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
-            if (binding.getRoot() == headerView) {
+            if (binding == headerBinding) {
                 return;
             }
             this.binding = binding;
         }
 
-        public ViewDataBinding getBinding(){
+        public ViewDataBinding getBinding() {
             return this.binding;
         }
     }
