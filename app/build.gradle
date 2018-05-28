@@ -38,6 +38,7 @@ dependencies {
     implementation 'devlight.io:navigationtabbar:1.2.5'
     implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    implementation 'com.jaren:likeview:1.0.0'
 
 
     testImplementation 'junit:junit:4.12'

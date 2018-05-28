@@ -1,5 +1,9 @@
 package com.ish.qswallpaper.activity;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +27,9 @@ public class BaseActivity extends AppCompatActivity {
                 .barColor(R.color.white)
                 .fitsSystemWindows(true)
                 .init();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(Color.parseColor("#000000"));
+        }
     }
 
 
@@ -31,5 +38,25 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         //必须调用该方法，防止内存泄漏
         ImmersionBar.with(this).destroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (newConfig.fontScale != 1)//非默认值
+        {
+            getResources();
+        }
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        if (res.getConfiguration().fontScale != 1) {//非默认值
+            Configuration newConfig = new Configuration();
+            newConfig.setToDefaults();//设置默认
+            res.updateConfiguration(newConfig, res.getDisplayMetrics());
+        }
+        return res;
     }
 }

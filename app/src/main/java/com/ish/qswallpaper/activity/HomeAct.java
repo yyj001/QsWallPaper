@@ -44,28 +44,28 @@ public class HomeAct extends BaseActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_home),
-                        Color.parseColor("#222222")
+                        Color.parseColor("#000000")
                 ).title("首页")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_dashboard),
-                        Color.parseColor("#222222")
+                        Color.parseColor("#000000")
                 ).title("最新")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_like),
-                        Color.parseColor("#222222")
+                        Color.parseColor("#000000")
                 ).title("收藏")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_more),
-                        Color.parseColor("#222222")
+                        Color.parseColor("#000000")
                 ).title("更多")
                         .build()
         );

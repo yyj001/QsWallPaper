@@ -1,5 +1,7 @@
 package com.ish.qswallpaper.bean;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -17,7 +19,7 @@ import com.ish.qswallpaper.view.HorizontalScrollImageView;
  * @date 2018/5/5.
  */
 
-public class WallPaper {
+public class WallPaper extends BaseObservable {
     private String imageUrl;
     private Bitmap placeholder;
     private int like;
@@ -44,6 +46,7 @@ public class WallPaper {
         this.placeholder = placeholder;
     }
 
+    @Bindable
     public int getLike() {
         return like;
     }

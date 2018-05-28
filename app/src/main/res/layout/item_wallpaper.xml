@@ -1,26 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="image"
             type="com.ish.qswallpaper.bean.WallPaper" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/newest_item_layout"
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:background="@color/black">
+
         <ImageView
             android:id="@+id/newest_item_imageview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            app:imageUrl="@{image.imageUrl}"
             android:scaleType="centerCrop"
-            />
-    </LinearLayout>
+            app:imageUrl="@{image.imageUrl}" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/gradient_bg">
+
+            <TextView
+                android:id="@+id/newest_item_likenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf((Integer)image.like)}"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:layout_marginTop="18dp"
+                android:layout_toLeftOf="@+id/newest_item_likeview"/>
+
+            <com.jaren.lib.view.LikeView
+                android:id="@+id/newest_item_likeview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cirRadius="10dp"
+                app:cycleTime="1000"
+                app:defaultColor="#ffffff"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
 </layout>

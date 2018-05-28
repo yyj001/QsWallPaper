@@ -84,9 +84,7 @@ public class NewestFragment extends Fragment implements NavigationTabStrip.OnTab
     @Override
     public void onEndTabSelected(String title, int index) {
         if(index==0){
-            if(!ifGrid){
-                return;
-            }
+            if(!ifGrid){return;}
             mBinding.newestRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             mBinding.newestRecylerView.setAdapter(adapter);
             //更换按钮图片
@@ -101,7 +99,6 @@ public class NewestFragment extends Fragment implements NavigationTabStrip.OnTab
             glm.setSpanSizeLookup(new HeaderSpanSizeLookup(glm));
             mBinding.newestRecylerView.setLayoutManager(glm);
             mBinding.newestRecylerView.setAdapter(adapter);
-
             //更换按钮图片
             Glide.with(getActivity()).load(R.drawable.ic_line_g).into(headerBinding.newsLineBtn);
             Glide.with(getActivity()).load(R.drawable.ic_grid_b).into(headerBinding.newsNineBtn);
