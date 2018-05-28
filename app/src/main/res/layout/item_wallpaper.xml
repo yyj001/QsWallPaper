@@ -8,16 +8,19 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/newest_item_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="1dp"
+        android:background="@color/black">
         <ImageView
             android:id="@+id/newest_item_imageview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             app:imageUrl="@{image.imageUrl}"
+            android:scaleType="centerCrop"
             />
     </LinearLayout>
 </layout>

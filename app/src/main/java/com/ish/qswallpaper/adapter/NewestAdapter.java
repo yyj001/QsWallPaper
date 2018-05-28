@@ -1,14 +1,19 @@
 package com.ish.qswallpaper.adapter;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -31,7 +36,7 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     private static HeaderNewestBinding headerBinding;
-    private boolean ifStragger = false;
+    private int width;
 
     public NewestAdapter(List<WallPaper> list) {
         this.list = list;
@@ -54,6 +59,13 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
             return;
         }
         int pos = getRealPosition(holder);
+        //如果是网格布局就修改高度
+        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+        if (lp != null && lp instanceof GridLayoutManager.LayoutParams) {
+            ViewGroup.LayoutParams params = ((ItemWallpaperBinding) holder.binding).newestItemImageview.getLayoutParams();
+            params.height = width / 3;
+            ((ItemWallpaperBinding) holder.binding).newestItemImageview.setLayoutParams(params);
+        }
         ((ItemWallpaperBinding) holder.binding).setImage(list.get(pos));
     }
 
@@ -88,10 +100,12 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     public void setHeaderView(HeaderNewestBinding binding) {
         NewestAdapter.headerBinding = binding;
         notifyItemInserted(0);
-    }
-
-    public void setIfStragger(Boolean ifStragger) {
-        this.ifStragger = ifStragger;
+        //设置屏幕高度
+        WindowManager wm = (WindowManager) headerBinding.getRoot().getContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        width = dm.widthPixels;         // 屏幕宽度（像素）
     }
 
 
@@ -99,8 +113,7 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     public void onViewAttachedToWindow(ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-        if(lp != null
-                && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+        if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
             StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
             p.setFullSpan(holder.getLayoutPosition() == 0);
         }

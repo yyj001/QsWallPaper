@@ -1,74 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:id="@+id/newest_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:padding="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="35sp"
-                android:text="最新"
                 android:layout_marginLeft="15dp"
-                />
+                android:text="最新"
+                android:textColor="@color/black"
+                android:textSize="35sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
-        <com.gigamole.navigationtabstrip.NavigationTabStrip
-            android:id="@+id/newest_tabbar"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="7dp"
-            app:nts_size="5sp"
-            app:nts_color="#f46f5e"
-            app:nts_weight="5dp"
-            app:nts_factor="2.5"
-            app:nts_type="point"
-            app:nts_gravity="bottom"
-            app:nts_corners_radius="15dp"
-            app:nts_animation_duration="300"
-            app:nts_active_color="#ffffff"
-            app:nts_inactive_color="#ffffff" />
+            android:layout_height="50dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/news_line_btn"
-                    android:layout_width="23dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/ic_line_b"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitStart"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/news_nine_btn"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/ic_grid_g"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitStart"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
+            <com.gigamole.navigationtabstrip.NavigationTabStrip
+                android:id="@+id/newest_tabbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:nts_active_color="#ffffff"
+                app:nts_animation_duration="300"
+                app:nts_color="#f46f5e"
+                app:nts_corners_radius="15dp"
+                app:nts_factor="2.5"
+                app:nts_gravity="top"
+                app:nts_inactive_color="#ffffff"
+                app:nts_size="5sp"
+                app:nts_type="point"
+                app:nts_weight="5dp" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/news_line_btn"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/ic_line_b"
+                        android:scaleType="fitStart" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/news_nine_btn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+
+                        android:background="@drawable/ic_grid_g"
+                        android:scaleType="fitStart" />
+                </RelativeLayout>
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
+
 </layout>

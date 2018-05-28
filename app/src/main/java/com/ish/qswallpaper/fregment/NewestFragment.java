@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.ish.qswallpaper.R;
 import com.ish.qswallpaper.adapter.NewestAdapter;
@@ -21,6 +22,7 @@ import com.ish.qswallpaper.bean.WallPaper;
 import com.ish.qswallpaper.databinding.FragmentNewestBinding;
 import com.ish.qswallpaper.databinding.HeaderNewestBinding;
 import com.ish.qswallpaper.manager.HeaderSpanSizeLookup;
+import com.ish.qswallpaper.manager.WrapHeightGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +32,12 @@ import java.util.List;
  * @date 2018/5/25.
  */
 
-public class NewestFragment extends Fragment implements NavigationTabStrip.OnTabStripSelectedIndexListener
-        , View.OnClickListener {
+public class NewestFragment extends Fragment implements NavigationTabStrip.OnTabStripSelectedIndexListener {
     private FragmentNewestBinding mBinding;
     private List<WallPaper> list;
     private HeaderNewestBinding headerBinding;
     private NewestAdapter adapter;
+    private boolean ifGrid;
 
     @Nullable
     @Override
@@ -49,6 +51,8 @@ public class NewestFragment extends Fragment implements NavigationTabStrip.OnTab
     }
 
     public void initData(LayoutInflater inflater) {
+        //每次都要设置
+        ifGrid = false;
         list = new ArrayList<WallPaper>();
         for (int i = 1; i <= 23; ++i) {
             WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/wallpaper_mini512/" + (i % 23 + 1) + ".jpg",
@@ -59,53 +63,49 @@ public class NewestFragment extends Fragment implements NavigationTabStrip.OnTab
         //头部binding
         headerBinding = DataBindingUtil.inflate(inflater, R.layout.header_newest,
                 mBinding.newestRecylerView, false);
-        headerBinding.newestTabbar.setTitles("平铺", "分列");
+        headerBinding.newestTabbar.setTitles("  ", "  ");
         headerBinding.newestTabbar.setTabIndex(0, true);
         headerBinding.newestTabbar.setOnTabStripSelectedIndexListener(this);
-        headerBinding.newsLineBtn.setOnClickListener(this);
-        headerBinding.newsNineBtn.setOnClickListener(this);
 
         adapter = new NewestAdapter(list);
         adapter.setHeaderView(headerBinding);
         mBinding.setAdapter(adapter);
-
     }
 
     @Override
     public void onStartTabSelected(String title, int index) {
     }
 
+    /**
+     * tabbar切换动画完成后，修改recyclerview的布局
+     * @param title
+     * @param index
+     */
     @Override
     public void onEndTabSelected(String title, int index) {
-        Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
+        if(index==0){
+            if(!ifGrid){
+                return;
+            }
+            mBinding.newestRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mBinding.newestRecylerView.setAdapter(adapter);
+            //更换按钮图片
+            Glide.with(getActivity())
+                    .load(R.drawable.ic_line_b)
+                    .into(headerBinding.newsLineBtn);
+            Glide.with(getActivity()).load(R.drawable.ic_grid_g).into(headerBinding.newsNineBtn);
+            ifGrid = false;
+        }else{
+            if(ifGrid){return;}
+            GridLayoutManager glm = new GridLayoutManager(getActivity(), 3);
+            glm.setSpanSizeLookup(new HeaderSpanSizeLookup(glm));
+            mBinding.newestRecylerView.setLayoutManager(glm);
+            mBinding.newestRecylerView.setAdapter(adapter);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        Resources resources = getActivity().getResources();
-        switch (v.getId()) {
-            case R.id.news_line_btn:
-                mBinding.newestRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                adapter.setIfStragger(false);
-                mBinding.newestRecylerView.setAdapter(adapter);
-
-                headerBinding.newestTabbar.setTabIndex(0,true);
-                headerBinding.newsLineBtn.setImageDrawable(resources.getDrawable(R.drawable.ic_line_b));
-                headerBinding.newsNineBtn.setImageDrawable(resources.getDrawable(R.drawable.ic_grid_g));
-                break;
-            case R.id.news_nine_btn:
-                //设置瀑布流
-                StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2
-                        , StaggeredGridLayoutManager.VERTICAL);
-                mBinding.newestRecylerView.setLayoutManager(sglm);
-                adapter.setIfStragger(true);
-                mBinding.newestRecylerView.setAdapter(adapter);
-                headerBinding.newestTabbar.setTabIndex(1,true);
-                headerBinding.newsLineBtn.setImageDrawable(resources.getDrawable(R.drawable.ic_line_g));
-                headerBinding.newsNineBtn.setImageDrawable(resources.getDrawable(R.drawable.ic_grid_b));
-                break;
-            default:
+            //更换按钮图片
+            Glide.with(getActivity()).load(R.drawable.ic_line_g).into(headerBinding.newsLineBtn);
+            Glide.with(getActivity()).load(R.drawable.ic_grid_b).into(headerBinding.newsNineBtn);
+            ifGrid = true;
         }
     }
 }
