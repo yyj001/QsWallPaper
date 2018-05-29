@@ -32,7 +32,17 @@
         android:id="@+id/inner_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="推荐专题"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        />
 
 
 </LinearLayout>

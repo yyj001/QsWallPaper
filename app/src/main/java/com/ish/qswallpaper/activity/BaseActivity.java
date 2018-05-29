@@ -49,6 +49,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
     }
 
+    //禁止字体随系统改变
     @Override
     public Resources getResources() {
         Resources res = super.getResources();

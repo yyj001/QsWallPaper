@@ -59,12 +59,13 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
             return;
         }
         int pos = getRealPosition(holder);
-        //如果是网格布局就修改高度
+        //如果是网格布局就修改高度，并且隐藏点赞数目
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
         if (lp != null && lp instanceof GridLayoutManager.LayoutParams) {
             ViewGroup.LayoutParams params = ((ItemWallpaperBinding) holder.binding).newestItemImageview.getLayoutParams();
             params.height = width / 3;
             ((ItemWallpaperBinding) holder.binding).newestItemImageview.setLayoutParams(params);
+            ((ItemWallpaperBinding) holder.binding).newestItemLikenumber.setAlpha(0);
         }
         ((ItemWallpaperBinding) holder.binding).setImage(list.get(pos));
     }
