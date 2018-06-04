@@ -2,16 +2,134 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="adapter"
+            type="com.ish.qswallpaper.adapter.NewestAdapter" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:text="首页"
+                        android:textColor="@color/black"
+                        android:textSize="35sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/search_btn2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_search" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/header_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="最新"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <com.gigamole.navigationtabstrip.NavigationTabStrip
+                        android:id="@+id/gallery_tabbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:nts_active_color="#ffffff"
+                        app:nts_animation_duration="300"
+                        app:nts_color="#f46f5e"
+                        app:nts_corners_radius="15dp"
+                        app:nts_factor="2.5"
+                        app:nts_gravity="top"
+                        app:nts_inactive_color="#ffffff"
+                        app:nts_size="5sp"
+                        app:nts_type="point"
+                        app:nts_weight="5dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/gallery_line_btn"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                android:adjustViewBounds="true"
+                                android:background="@drawable/ic_line_b"
+                                android:scaleType="fitStart" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/gallery_nine_btn"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_centerInParent="true"
+
+                                android:background="@drawable/ic_grid_g"
+                                android:scaleType="fitStart" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/gallery_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:adapter="@{adapter}"/>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

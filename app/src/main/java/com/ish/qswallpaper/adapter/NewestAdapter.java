@@ -64,6 +64,7 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
         if (lp != null && lp instanceof GridLayoutManager.LayoutParams) {
             ViewGroup.LayoutParams params = ((ItemWallpaperBinding) holder.binding).newestItemImageview.getLayoutParams();
             params.height = width / 3;
+            Log.d("dddddddddd", "onBindViewHolder: " +width + " " + params.height);
             ((ItemWallpaperBinding) holder.binding).newestItemImageview.setLayoutParams(params);
             ((ItemWallpaperBinding) holder.binding).newestItemLikenumber.setAlpha(0);
         }

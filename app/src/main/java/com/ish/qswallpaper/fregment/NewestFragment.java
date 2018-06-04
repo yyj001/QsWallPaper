@@ -46,7 +46,7 @@ public class NewestFragment extends Fragment implements NavigationTabStrip.OnTab
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_newest,
                 container, false);
 
-        initData(inflater);
+        //initData(inflater);
         return mBinding.getRoot();
     }
 
