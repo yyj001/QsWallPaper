@@ -54,7 +54,7 @@ public class NewestFragment extends Fragment implements NavigationTabStrip.OnTab
         //每次都要设置
         ifGrid = false;
         list = new ArrayList<WallPaper>();
-        for (int i = 1; i <= 23; ++i) {
+        for (int i = 1; i <= 25; ++i) {
             WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/wallpaper_mini512/" + (i % 23 + 1) + ".jpg",
                     null, 1);
             list.add(wallPaper);
@@ -67,7 +67,7 @@ public class NewestFragment extends Fragment implements NavigationTabStrip.OnTab
         headerBinding.newestTabbar.setTabIndex(0, true);
         headerBinding.newestTabbar.setOnTabStripSelectedIndexListener(this);
 
-        adapter = new NewestAdapter(list);
+        //adapter = new NewestAdapter(list);
         adapter.setHeaderView(headerBinding);
         mBinding.setAdapter(adapter);
     }

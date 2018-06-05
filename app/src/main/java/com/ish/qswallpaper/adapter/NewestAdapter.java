@@ -36,10 +36,12 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     private static HeaderNewestBinding headerBinding;
+    //屏幕宽度
     private int width;
 
-    public NewestAdapter(List<WallPaper> list) {
+    public NewestAdapter(List<WallPaper> list, int width) {
         this.list = list;
+        this.width = width;
     }
 
     @Override
@@ -59,14 +61,14 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
             return;
         }
         int pos = getRealPosition(holder);
-        //如果是网格布局就修改高度，并且隐藏点赞数目
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+//        //网格布局,修改高度，隐藏点赞
         if (lp != null && lp instanceof GridLayoutManager.LayoutParams) {
             ViewGroup.LayoutParams params = ((ItemWallpaperBinding) holder.binding).newestItemImageview.getLayoutParams();
             params.height = width / 3;
-            Log.d("dddddddddd", "onBindViewHolder: " +width + " " + params.height);
             ((ItemWallpaperBinding) holder.binding).newestItemImageview.setLayoutParams(params);
-            ((ItemWallpaperBinding) holder.binding).newestItemLikenumber.setAlpha(0);
+            ((ItemWallpaperBinding) holder.binding).newestItemLikenumber.setVisibility(View.GONE);
+            ((ItemWallpaperBinding) holder.binding).newestItemLikeview.setVisibility(View.GONE);
         }
         ((ItemWallpaperBinding) holder.binding).setImage(list.get(pos));
     }
@@ -102,24 +104,8 @@ public class NewestAdapter extends RecyclerView.Adapter<NewestAdapter.ViewHolder
     public void setHeaderView(HeaderNewestBinding binding) {
         NewestAdapter.headerBinding = binding;
         notifyItemInserted(0);
-        //设置屏幕高度
-        WindowManager wm = (WindowManager) headerBinding.getRoot().getContext()
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(dm);
-        width = dm.widthPixels;         // 屏幕宽度（像素）
     }
 
-
-    @Override
-    public void onViewAttachedToWindow(ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-        if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
-            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
-            p.setFullSpan(holder.getLayoutPosition() == 0);
-        }
-    }
 
     @Override
     public int getItemCount() {

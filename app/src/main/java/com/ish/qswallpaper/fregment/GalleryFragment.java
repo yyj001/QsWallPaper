@@ -1,5 +1,6 @@
 package com.ish.qswallpaper.fregment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ import com.ish.qswallpaper.adapter.NewestAdapter;
 import com.ish.qswallpaper.bean.WallPaper;
 import com.ish.qswallpaper.databinding.FragmentGalleryBinding;
 import com.ish.qswallpaper.manager.HeaderSpanSizeLookup;
+import com.ish.qswallpaper.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +53,6 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
     private LinearLayoutManager outLayoutManager;
     private LinearLayoutManager innerLayoutManager;
     private NewestAdapter adapter;
-    GalleryItemAdapter madapter;
     private boolean ifGrid;
 
 
@@ -92,9 +95,7 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
         mBinding.galleryRecyclerview.setLayoutManager(outLayoutManager);
         mBinding.galleryRecyclerview.setHasFixedSize(true);
 
-        //mAdapter = new NewestAdapter(list);
-        //adapter = new GalleryItemAdapter(list);
-        adapter = new NewestAdapter(list);
+        adapter = new NewestAdapter(list, ScreenUtils.getWidth(mBinding));
         mBinding.setAdapter(adapter);
 
         //banner
@@ -137,7 +138,6 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
         }else{
             if(ifGrid){return;}
             GridLayoutManager glm = new GridLayoutManager(getActivity(), 3);
-            glm.setSpanSizeLookup(new HeaderSpanSizeLookup(glm));
             mBinding.galleryRecyclerview.setLayoutManager(glm);
             mBinding.setAdapter(adapter);
             //更换按钮图片

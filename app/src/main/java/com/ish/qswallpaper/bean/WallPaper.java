@@ -60,7 +60,6 @@ public class WallPaper extends BaseObservable {
         Glide.with(view.getContext())
                 .load(imageUrl)
                 .dontTransform()
-                .error(R.drawable.placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .crossFade()
                 .into(view);
