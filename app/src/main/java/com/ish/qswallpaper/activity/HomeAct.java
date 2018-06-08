@@ -50,7 +50,7 @@ public class HomeAct extends BaseActivity {
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_dashboard),
+                        getResources().getDrawable(R.drawable.ic_type),
                         Color.parseColor("#000000")
                 ).title("最新")
                         .build()

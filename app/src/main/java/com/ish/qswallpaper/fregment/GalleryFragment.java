@@ -55,24 +55,15 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
     private NewestAdapter adapter;
     private boolean ifGrid;
 
-
-    @Nullable
+    /**
+     * 加载网络图片的数据
+     * @param savedInstanceState
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_gallery,
-                container,false);
-        //防止oncreateView多次导致内容增多
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         list = new ArrayList<WallPaper>();
         bannerList = new ArrayList<WallPaper>();
-        initView(inflater);
-        return mBinding.getRoot();
-    }
-
-    public void initView(LayoutInflater inflater) {
-        super.onStart();
-        ifGrid = false;
         for (int i = 1; i <= 23; ++i) {
             WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/wallpaper_mini512/" + (i%23+1) +".jpg",
                     null,1);
@@ -84,6 +75,24 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
                     null,1);
             bannerList.add(wallPaper);
         }
+    }
+
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_gallery,
+                container,false);
+        initView(inflater);
+        return mBinding.getRoot();
+    }
+
+    public void initView(LayoutInflater inflater) {
+        super.onStart();
+        ifGrid = false;
         //设置layoutManager
         outLayoutManager = new LinearLayoutManager(getActivity());
         innerLayoutManager = new LinearLayoutManager(getActivity());
@@ -108,16 +117,11 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
     }
 
 
-    public void bigList(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setAutoMeasureEnabled(true);
-        mBinding.galleryRecyclerview.setLayoutManager(linearLayoutManager);
-    }
-
     @Override
     public void onStartTabSelected(String title, int index) {
 
     }
+
     /**
      * tabbar切换动画完成后，修改recyclerview的布局
      * @param title
