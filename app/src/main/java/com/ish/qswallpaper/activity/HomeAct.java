@@ -2,19 +2,10 @@ package com.ish.qswallpaper.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewParent;
-import android.view.Window;
-import android.widget.TextView;
-
-import com.gyf.barlibrary.ImmersionBar;
 import com.ish.qswallpaper.R;
+
 import com.ish.qswallpaper.adapter.TabPageIndicatorAdapter;
 
 import java.util.ArrayList;
@@ -44,29 +35,33 @@ public class HomeAct extends BaseActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_home),
-                        Color.parseColor("#000000")
+                        Color.parseColor("#ffffff")
                 ).title("首页")
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_home_select))
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_type),
-                        Color.parseColor("#000000")
+                        getResources().getDrawable(R.drawable.ic_discover),
+                        Color.parseColor("#ffffff")
                 ).title("最新")
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_discover_fill))
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_like),
-                        Color.parseColor("#000000")
+                        Color.parseColor("#ffffff")
                 ).title("收藏")
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_like_fill))
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_more),
-                        Color.parseColor("#000000")
+                        Color.parseColor("#ffffff")
                 ).title("更多")
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_more_select))
                         .build()
         );
         navigationTabBar.setModels(models);

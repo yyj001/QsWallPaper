@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="bottom"
-            app:ntb_inactive_color="#000"
+            app:ntb_inactive_color="#888888"
+            app:ntb_active_color="@color/black"
             app:ntb_badged="true"
             app:ntb_badge_position="right"
             app:ntb_badge_gravity="top"
@@ -32,8 +33,8 @@
             app:ntb_bg_color="#ffffff"
             app:ntb_badge_size="12sp"
             app:ntb_title_mode="active"
-            app:ntb_titled="true"
-            app:ntb_scaled="false"
+            app:ntb_titled="false"
+            app:ntb_scaled="true"
             app:ntb_badge_title_color="#ffffffff" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>
