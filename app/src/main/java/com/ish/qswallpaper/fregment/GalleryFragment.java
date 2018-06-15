@@ -1,12 +1,10 @@
 package com.ish.qswallpaper.fregment;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +14,9 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 
 import com.bumptech.glide.Glide;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
@@ -47,12 +40,12 @@ import java.util.List;
 public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTabStripSelectedIndexListener{
 
     private FragmentGalleryBinding mBinding;
-    private List<WallPaper> list;
-    private List<WallPaper> bannerList;
+    private List<WallPaper> mList;
+    private List<WallPaper> mBannerList;
     private RecyclerView header;
-    private LinearLayoutManager outLayoutManager;
-    private LinearLayoutManager innerLayoutManager;
-    private NewestAdapter adapter;
+    private LinearLayoutManager mOutLayoutManager;
+    private LinearLayoutManager mInnerLayoutManager;
+    private NewestAdapter mAdapter;
     private boolean ifGrid;
 
     /**
@@ -62,18 +55,18 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list = new ArrayList<WallPaper>();
-        bannerList = new ArrayList<WallPaper>();
+        mList = new ArrayList<WallPaper>();
+        mBannerList = new ArrayList<WallPaper>();
         for (int i = 1; i <= 23; ++i) {
             WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/wallpaper_mini512/" + (i%23+1) +".jpg",
                     null,1);
-            list.add(wallPaper);
+            mList.add(wallPaper);
         }
 
         for (int i = 1; i <= 3; ++i) {
             WallPaper wallPaper = new WallPaper("http://www.isssh.cn/qs/banner/banner" + i +".jpg",
                     null,1);
-            bannerList.add(wallPaper);
+            mBannerList.add(wallPaper);
         }
     }
 
@@ -94,28 +87,27 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
         super.onStart();
         ifGrid = false;
         //设置layoutManager
-        outLayoutManager = new LinearLayoutManager(getActivity());
-        innerLayoutManager = new LinearLayoutManager(getActivity());
-        innerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        outLayoutManager.setAutoMeasureEnabled(true);
-        innerLayoutManager.setAutoMeasureEnabled(true);
+        mOutLayoutManager = new LinearLayoutManager(getActivity());
+        mInnerLayoutManager = new LinearLayoutManager(getActivity());
+        mInnerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mOutLayoutManager.setAutoMeasureEnabled(true);
+        mInnerLayoutManager.setAutoMeasureEnabled(true);
 
         //为recyclerView设置lm
-        mBinding.galleryRecyclerview.setLayoutManager(outLayoutManager);
+        mBinding.galleryRecyclerview.setLayoutManager(mOutLayoutManager);
         mBinding.galleryRecyclerview.setHasFixedSize(true);
 
-        adapter = new NewestAdapter(list, ScreenUtils.getWidth(mBinding));
-        mBinding.setAdapter(adapter);
+        mAdapter = new NewestAdapter(mList, ScreenUtils.getWidth(mBinding));
+        mBinding.setAdapter(mAdapter);
 
         //banner
-        mBinding.headerRecyclerview.setLayoutManager(innerLayoutManager);
-        mBinding.headerRecyclerview.setAdapter(new InnerAdapter(bannerList));
+        mBinding.headerRecyclerview.setLayoutManager(mInnerLayoutManager);
+        mBinding.headerRecyclerview.setAdapter(new InnerAdapter(mBannerList));
         //初始化tabView
         mBinding.galleryTabbar.setTitles("  ", "  ");
         mBinding.galleryTabbar.setTabIndex(0, true);
         mBinding.galleryTabbar.setOnTabStripSelectedIndexListener(this);
     }
-
 
     @Override
     public void onStartTabSelected(String title, int index) {
@@ -132,7 +124,7 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
         if(index==0){
             if(!ifGrid){return;}
             mBinding.galleryRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mBinding.setAdapter(adapter);
+            mBinding.setAdapter(mAdapter);
             //更换按钮图片
             Glide.with(getActivity())
                     .load(R.drawable.ic_line_b)
@@ -143,11 +135,17 @@ public class GalleryFragment extends Fragment implements NavigationTabStrip.OnTa
             if(ifGrid){return;}
             GridLayoutManager glm = new GridLayoutManager(getActivity(), 3);
             mBinding.galleryRecyclerview.setLayoutManager(glm);
-            mBinding.setAdapter(adapter);
+            mBinding.setAdapter(mAdapter);
             //更换按钮图片
             Glide.with(getActivity()).load(R.drawable.ic_line_g).into(mBinding.galleryLineBtn);
             Glide.with(getActivity()).load(R.drawable.ic_grid_b).into(mBinding.galleryNineBtn);
             ifGrid = true;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("abcc", "onDestroyView: ");
     }
 }

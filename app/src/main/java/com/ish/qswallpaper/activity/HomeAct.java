@@ -28,6 +28,7 @@ public class HomeAct extends BaseActivity {
         FragmentPagerAdapter fragmentPagerAdapter = new TabPageIndicatorAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(fragmentPagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
         initData();
     }
 
