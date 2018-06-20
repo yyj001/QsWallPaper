@@ -5,9 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ish.qswallpaper.fregment.CollectionFragment;
+import com.ish.qswallpaper.fregment.DiscoveryFragment;
 import com.ish.qswallpaper.fregment.GalleryFragment;
 import com.ish.qswallpaper.fregment.InformationFragment;
-import com.ish.qswallpaper.fregment.NewestFragment;
 
 /**
  * @author ish
@@ -27,7 +27,7 @@ public class TabPageIndicatorAdapter extends FragmentPagerAdapter {
                 fragment = new GalleryFragment();
                 break;
             case 1:
-                fragment = new NewestFragment();
+                fragment = new DiscoveryFragment();
                 break;
             case 2:
                 fragment = new CollectionFragment();

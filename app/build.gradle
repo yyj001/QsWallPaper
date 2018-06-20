@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.jaren:likeview:1.0.0'
 
 
+    implementation 'com.android.support:support-v4:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

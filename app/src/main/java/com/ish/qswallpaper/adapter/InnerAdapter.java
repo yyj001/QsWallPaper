@@ -17,10 +17,10 @@ import com.ish.qswallpaper.bean.WallPaper;
 import java.util.List;
 
 /**
+ * gallery页面banner的adapter
  * @author ish
  * @date 2018/5/7.
  */
-
 public class InnerAdapter extends RecyclerView.Adapter<InnerAdapter.ViewHolder> {
 
         private List<WallPaper> list;
